@@ -1,7 +1,4 @@
-Hello and welcome to this blog. Edit the `index.md` file to change this content. All pages on the blog, including this one, use [Markdown](https://guides.github.com/features/mastering-markdown/). You can include images:
-
-![Image of fast.ai logo](images/logo.png)
-
-## This is a title
-
-And you can include links, like this [link to fast.ai](https://www.fast.ai). Posts will appear after this file. 
+## Who Am I?
+Hey, My name is Max Hennick. I am a researcher at [TrojAI](https://troj.ai/). My research interests are group equivariant convolutional neural networks (and applications of other algebraic structures to deep learning), representation learning, and adversarial attacks. I'm also a big fan of computability theory, computational group theory, and reinforcement learning.
+## What Is This Blog For?
+This blog exists as a place for me to put ideas and other ephemera, usually half-developed, in the hopes that maybe it will be useful or thought-provoking for some.
