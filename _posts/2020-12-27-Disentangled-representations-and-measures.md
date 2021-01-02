@@ -32,13 +32,19 @@ $$
 $$
 where $*$ is the convolution and $\alpha \in C_c(\mathbb{Z}^2)$. This means the the action via translations and multiplication by scalars in $\mathbb{R}$ are both well defined on the space. This can be seen by simply defining a translation as the function $t$ which takes the desired translation (which is an element of $\mathbb{Z}^2$) to the value $1$. Convolution with $t$ then defines the desired translation. Furthermore, $\mathbb{R}$ scalar multiplication is given by a function taking the trivial action (the point (0,0)) in $\mathbb{Z}^2$ to the scalar multiple $s$. Convolution with functions of this type is how scalar multiplication is performed.
 
-Given this abstract interpretation of feature spaces in convolutional networks, we need a description of the actual layers which transform these feature spaces. The module viewpoint of these feature spaces actually provides us with arguably the most "natural" description of convolutional layers. Since convolutional layers are translation equivariant and $\mathbb{R}$-linear they are, by definition, $ C_c(\mathbb{Z}^2)$-[module homomorphisms](https://en.wikipedia.org/wiki/Module_homomorphism). That is, a convolutional layer $\Psi$ with $c$ input channels and $d$ output channels is an element of the space $\text{Hom}_{C_c(\mathbb{Z}^2)}(C_c(\mathbb{Z}^2) \otimes_\mathbb{R} V, C_c(\mathbb{Z}^2) \otimes_\mathbb{R} W)$ where $V$ and $W$ are $c$ and $d$ dimensional vector spaces respectively. We now give a theorem which relates this idea of homomorphisms to the classical idea of convolutional layers as being described by a collection of filters:
+Given this abstract interpretation of feature spaces in convolutional networks, we need a description of the actual layers which transform these feature spaces. The module viewpoint of these feature spaces actually provides us with arguably the most "natural" description of convolutional layers. Since convolutional layers are translation equivariant and $\mathbb{R}$-linear they are, by definition, $ C_c(\mathbb{Z}^2)$-[module homomorphisms](https://en.wikipedia.org/wiki/Module_homomorphism). That is, a convolutional layer $\Psi$ with $c$ input channels and $d$ output channels is an element of the space $ \textit{Hom}_{C_c(\mathbb{Z}^2)}(C_c(\mathbb{Z}^2) \otimes_\mathbb{R} V, C_c(\mathbb{Z}^2) \otimes_\mathbb{R} W)$ where $V$ and $W$ are $c$ and $d$ dimensional vector spaces respectively. We now give a theorem which relates this idea of homomorphisms to the classical idea of convolutional layers as being described by a collection of filters:
 
 ** Theorem 1 ** :
-$\text{Hom}_{C_c(\mathbb{Z}^2)}(C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^c, C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^d)$ is isomorphic to $\bigoplus_{i=0}^d \text{Hom}_{C_c(\mathbb{Z}^2)}(C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^c, C_c(\mathbb{Z}^2))$.
+$$
+\textit{Hom}_{C_c(\mathbb{Z}^2)}(C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^c, C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^d)
+$$ 
+is isomorphic to 
+$$
+\bigoplus_{i=0}^d \textit{Hom}_{C_c(\mathbb{Z}^2)}(C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^c, C_c(\mathbb{Z}^2))
+$$.
 
 ** Proof ** :
-Let $\Psi$ be an element of $\text{Hom}_{C_c(\mathbb{Z}^2)}(C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^c, C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^d)$ which takes the stack of feature maps $\vec{f}_1$ to $\vec{f}_2$. We can write $\vec{f}_2$ as the linear combination
+Let $\Psi$ be an element of $\textit{Hom}_{C_c(\mathbb{Z}^2)}(C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^c, C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^d)$ which takes the stack of feature maps $\vec{f}_1$ to $\vec{f}_2$. We can write $\vec{f}_2$ as the linear combination
 $$
 \vec{f}_2 = \sum_{j}^c f_{2,j} \otimes \vec{e}_j
 $$
