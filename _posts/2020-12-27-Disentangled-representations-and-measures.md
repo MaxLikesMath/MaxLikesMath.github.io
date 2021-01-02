@@ -128,11 +128,50 @@ and
 $$
 \Gamma_2
 $$
-. Suppose then we wish to combine these two families in a circuit which maintains "equivariance" with respect to both small categories. Now, if we suppose $f_p \in \mathcal{F}_1$ and $f_q \in \mathcal{F}_2$, to create a family of output features which forms a family which preserves equivariance under combinations of elements of the small categories, for every possible combination of $f_p$ and $f_q$ we must have a filter $\psi_{pq}$ such that
+. Suppose then we wish to combine these two families in a circuit which maintains "equivariance" with respect to both small categories. Now, if we suppose 
+$$
+f_p \in \mathcal{F}_1
+$$ 
+and 
+$$
+f_q \in \mathcal{F}_2
+$$
+, to create a family of output features which forms a family which preserves equivariance under combinations of elements of the small categories, for every possible combination of 
+$$
+f_p
+$$ 
+and 
+$$
+f_q
+$$ 
+we must have a filter 
+$$
+\psi_{pq}
+$$
+such that
 $$
 \psi_{pq}(\vec{f}) = \psi_{pq, p} * f_p + \psi_{pq, q} * f_q
 $$
-where all channels $f_i$ which do not belong to either $\mathcal{F}_1$ or $\mathcal{F}_2$ are convolved against a zero filter (in practice, the other filters are not zero, which we will soon explain) In order to preserve the equivariance we also require that every $\psi_{pq, p}$ (and $\psi_{pq, q}$) be related to each other under the corresponding small category of the input feature family.
+where all channels 
+$$
+f_i
+$$ 
+which do not belong to either 
+$$
+\mathcal{F}_1
+$$
+or $$
+\mathcal{F}_2
+$$
+are convolved against a zero filter (in practice, the other filters are not zero, which we will soon explain) In order to preserve the equivariance we also require that every 
+$$
+\psi_{pq, p}
+$$ 
+(and 
+$$
+\psi_{pq, q}
+$$
+) be related to each other under the corresponding small category of the input feature family.
 
 This is essentially an ["equivariant-equivariant circuit"](https://distill.pub/2020/circuits/equivariance/). However, notice that as we have presented them, they are very parameter inefficient. For example, given two families, the number of filters required to maintain equivariance to both families through the circuit is $\| \mathcal{F}_1 \| \cdot \| \mathcal{F}_2 \|$, furthermore, each filter only has two active sub-filters.
 
