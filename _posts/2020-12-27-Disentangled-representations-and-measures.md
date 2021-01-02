@@ -1,5 +1,5 @@
 # Feature Representations, Circuits, and Abstract Nonsense.
-Currently, two of the biggest areas of research in the realm of deep learning are [representation learning](https://www.deeplearningbook.org/contents/representation.html) and interpretablity(https://christophm.github.io/interpretable-ml-book/). Loosely speaking, representation learning (applied to deep learning) is the study of the behaviour of *feature representations* in neural networks, and how to design systems which learn more effective representations. Interpretability on the other hand can be seen as attempting to understand exactly what leads an individual network to make decisions about samples in some dataset. While these two are distinct in many ways, the tools used in interpretability tend to be very useful for examining ideas in representation learning in a more "empirical" way.
+Currently, two of the biggest areas of research in the realm of deep learning are [representation learning](https://www.deeplearningbook.org/contents/representation.html) and [interpretablity](https://christophm.github.io/interpretable-ml-book/). Loosely speaking, representation learning (applied to deep learning) is the study of the behaviour of *feature representations* in neural networks, and how to design systems which learn more effective representations. Interpretability on the other hand can be seen as attempting to understand exactly what leads an individual network to make decisions about samples in some dataset. While these two are distinct in many ways, the tools used in interpretability tend to be very useful for examining ideas in representation learning in a more "empirical" way.
 
 This application of interpretability to empirically studying representation learning in neural networks has resulted in many interesting discoveries. One of the most interesting things to come out of this paradigm is the idea of *circuits*. Circuits  (originally presented by [Olah et al.](https://distill.pub/2020/circuits/zoom-in/#claim-2)) can be thought of as essentially subnetworks within a network which describe how features in earlier layers interact to create more abstract features in deeper layers. Due to the complicated nature of neural network dynamics, studying such interactions empirically is the natural approach.
 
@@ -32,7 +32,11 @@ $$
 $$
 where $*$ is the convolution and $\alpha \in C_c(\mathbb{Z}^2)$. This means the the action via translations and multiplication by scalars in $\mathbb{R}$ are both well defined on the space. This can be seen by simply defining a translation as the function $t$ which takes the desired translation (which is an element of $\mathbb{Z}^2$) to the value $1$. Convolution with $t$ then defines the desired translation. Furthermore, $\mathbb{R}$ scalar multiplication is given by a function taking the trivial action (the point (0,0)) in $\mathbb{Z}^2$ to the scalar multiple $s$. Convolution with functions of this type is how scalar multiplication is performed.
 
-Given this abstract interpretation of feature spaces in convolutional networks, we need a description of the actual layers which transform these feature spaces. The module viewpoint of these feature spaces actually provides us with arguably the most "natural" description of convolutional layers. Since convolutional layers are translation equivariant and $\mathbb{R}$-linear they are, by definition, $ C_c(\mathbb{Z}^2)$-[module homomorphisms](https://en.wikipedia.org/wiki/Module_homomorphism). That is, a convolutional layer $\Psi$ with $c$ input channels and $d$ output channels is an element of the space $ \textit{Hom}_{C_c(\mathbb{Z}^2)}(C_c(\mathbb{Z}^2) \otimes_\mathbb{R} V, C_c(\mathbb{Z}^2) \otimes_\mathbb{R} W)$ where $V$ and $W$ are $c$ and $d$ dimensional vector spaces respectively. We now give a theorem which relates this idea of homomorphisms to the classical idea of convolutional layers as being described by a collection of filters:
+Given this abstract interpretation of feature spaces in convolutional networks, we need a description of the actual layers which transform these feature spaces. The module viewpoint of these feature spaces actually provides us with arguably the most "natural" description of convolutional layers. Since convolutional layers are translation equivariant and $\mathbb{R}$-linear they are, by definition, $ C_c(\mathbb{Z}^2)$-[module homomorphisms](https://en.wikipedia.org/wiki/Module_homomorphism). That is, a convolutional layer $\Psi$ with $c$ input channels and $d$ output channels is an element of the space 
+$$
+\textit{Hom}_{C_c(\mathbb{Z}^2)}(C_c(\mathbb{Z}^2) \otimes_\mathbb{R} V, C_c(\mathbb{Z}^2) \otimes_\mathbb{R} W)
+$$ 
+where $V$ and $W$ are $c$ and $d$ dimensional vector spaces respectively. We now give a theorem which relates this idea of homomorphisms to the classical idea of convolutional layers as being described by a collection of filters:
 
 ** Theorem 1 ** :
 $$
@@ -44,7 +48,11 @@ $$
 $$.
 
 ** Proof ** :
-Let $\Psi$ be an element of $\textit{Hom}_{C_c(\mathbb{Z}^2)}(C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^c, C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^d)$ which takes the stack of feature maps $\vec{f}_1$ to $\vec{f}_2$. We can write $\vec{f}_2$ as the linear combination
+Let $\Psi$ be an element of 
+$$
+\textit{Hom}_{C_c(\mathbb{Z}^2)}(C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^c, C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^d)
+$$ 
+which takes the stack of feature maps $\vec{f}_1$ to $\vec{f}_2$. We can write $\vec{f}_2$ as the linear combination
 $$
 \vec{f}_2 = \sum_{j}^c f_{2,j} \otimes \vec{e}_j
 $$
@@ -95,7 +103,7 @@ $$
 $$
 where all channels $f_i$ which do not belong to either $\mathcal{F}_1$ or $\mathcal{F}_2$ are convolved against a zero filter (in practice, the other filters are not zero, which we will soon explain) In order to preserve the equivariance we also require that every $\psi_{pq, p}$ (and $\psi_{pq, q}$) be related to each other under the corresponding small category of the input feature family.
 
-This is essentially an ["equivariant-equivariant circuit"](https://distill.pub/2020/circuits/equivariance/). However, notice that as we have presented them, they are very parameter inefficient. For example, given two families, the number of filters required to maintain equivariance to both families through the circuit is $|\mathcal{F}_1| \cdot |\mathcal{F}_2|$, furthermore, each filter only has two active sub-filters.
+This is essentially an ["equivariant-equivariant circuit"](https://distill.pub/2020/circuits/equivariance/). However, notice that as we have presented them, they are very parameter inefficient. For example, given two families, the number of filters required to maintain equivariance to both families through the circuit is $\| \mathcal{F}_1 \| \cdot \| \mathcal{F}_2 \|$, furthermore, each filter only has two active sub-filters.
 
 This parameter inefficiency isn't just within these sort of circuits, but can also be seen to be related to the idea of "pure features". We can think of pure features as being filters which only activate if a specific feature is present in an image. In order for a filter $\psi_i$ to be pure, one would suspect that that only a subset of its subfilters would be non-zero (since subfilters with substantial weights for input features which do not strongly correlate to the presence of the pure feature would cause noise in the output.) In our circuit discussion, each filter in the filter family was a "pure feature", so discussing properties of pure features also gives insight into properties of circuits.
 
