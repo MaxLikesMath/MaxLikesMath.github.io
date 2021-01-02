@@ -87,12 +87,12 @@ $$
 ## Filter Families
 In [the original post on circuits](https://distill.pub/2020/circuits/zoom-in/#claim-2-curves) they define a *family* of filters in a layer to be "a collection of filters in a layer which detect small variations of the same thing". We will give a more mathematical definition of families using the idea of [small categories](https://en.wikipedia.org/wiki/Category_(mathematics)). A small category is essentially a generalization of a group which is defined as a set of functions which must contain the identity function, and must have a defined associative function composition between elements. However, it need not be closed, so we may have compositions of elements which is not in the small category. When quantifying if a filter "detects" its associated filter we usually discuss the value given by a non-linearity applied to the output of a filter. To avoid any confusion about when a filter does or does not detect its associated feature(s), we will give a mathematical definition.
 
-** Definition 1 :**
+**Definition 1**:
 We say a filter $\psi_i$ is $p$-activated with threshold $\delta$ if $\|\sigma(\psi_i(\vec{f})) \|_p > \delta$ where $\sigma$ is a non-linearity.
 
 Now, the choice of $\delta$ depends on activation, so for simplicity we will consider our activation on the unit interval $[0,1]$, and set a threshold $\delta > 0.5$, and take the $p$-norm to be the $L_2$ norm. This captures the intuitive notion of a filter being activated. We can now define a family in a more mathematical way:
 
-** Definition 2 : **
+**Definition 2**:
 Let $\Gamma$ be a small category of transformations of the input. We call a collection of filters $\mathcal{F} = (\psi_p, \dots, \psi_q)$ a * $\Gamma$-family* if for all $\Lambda \in \Gamma$, if $\psi_i(\vec{f})$ activates for some $\psi_i \in \mathcal{F}$, then $\| \psi_i(\vec{f}) \|_2 \approx \| \psi_j(\Lambda \vec{f}) \|_2 + \psi_k(\Lambda \vec{f}) > \delta$ for some pair $\psi_j, \psi_k$, where one of the pair is allowed to be $0$.
 
 This definition essentially says that the small category $\Gamma$ shifts the activation around the family $\mathcal{F}$. This phenomena is observed in the curve detectors of [Olah et al.](https://distill.pub/2020/circuits/zoom-in/#claim-2-curves) where transformations by the group $SO(2)$ (which is a small category) on input features shifted the activations within a family of curve detectors. It also captures the case of the invariant dog-head detector by defining $\mathcal{F}$ to be the invariant detector $\psi$, since $\| \psi(\vec{f}) \|_2 \approx \| \psi_j(\Lambda \vec{f}) \|_2$ for any $SO(2)$ transformation $\Lambda$. The definition given above thus captures the classic idea of group equivariance, but allows a more formal treatment of actions on the input space which are not group actions.
