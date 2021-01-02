@@ -52,7 +52,19 @@ Let $\Psi$ be an element of
 $$
 \textit{Hom}_{C_c(\mathbb{Z}^2)}(C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^c, C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^d)
 $$ 
-which takes the stack of feature maps $ \vec{f}_1 $ to $ \vec{f}_2 $. We can write $ \vec{f}_2 $ as the linear combination
+which takes the stack of feature maps 
+$$ 
+\vec{f}_1 
+$$ 
+to 
+$$ 
+\vec{f}_2 
+$$. 
+We can write 
+$$ 
+\vec{f}_2 
+$$ 
+as the linear combination
 $$
 \vec{f}_2 = \sum_{j}^c f_{2,j} \otimes \vec{e}_j
 $$
