@@ -38,7 +38,7 @@ $$
 $$ 
 where $V$ and $W$ are $c$ and $d$ dimensional vector spaces respectively. We now give a theorem which relates this idea of homomorphisms to the classical idea of convolutional layers as being described by a collection of filters:
 
-** Theorem 1 ** :
+**Theorem 1** :
 $$
 \textit{Hom}_{C_c(\mathbb{Z}^2)}(C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^c, C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^d)
 $$ 
@@ -47,7 +47,7 @@ $$
 \bigoplus_{i=0}^d \textit{Hom}_{C_c(\mathbb{Z}^2)}(C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^c, C_c(\mathbb{Z}^2))
 $$.
 
-** Proof ** :
+**Proof** :
 Let $\Psi$ be an element of 
 $$
 \textit{Hom}_{C_c(\mathbb{Z}^2)}(C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^c, C_c(\mathbb{Z}^2) \otimes_\mathbb{R} \mathbb{R}^d)
@@ -109,7 +109,26 @@ To discuss this, we first observe how convolution is actually calculated. For th
 $$
 \psi_i(\vec{f}) = psi_{i,1} * f_1 + \dots + \psi_{i,c}*f_c
 $$
-Let's consider now how circuits combine families, which will give us some insight into possible reasons why certain feature representations form. Suppose we have two sets of input channels in $\vec{f}$ which form families $\mathcal{F}_1$ and $\mathcal{F}_2$ with small categories $\Gamma_1$ and $\Gamma_2$. Suppose then we wish to combine these two families in a circuit which maintains "equivariance" with respect to both small categories. Now, if we suppose $f_p \in \mathcal{F}_1$ and $f_q \in \mathcal{F}_2$, to create a family of output features which forms a family which preserves equivariance under combinations of elements of the small categories, for every possible combination of $f_p$ and $f_q$ we must have a filter $\psi_{pq}$ such that
+Let's consider now how circuits combine families, which will give us some insight into possible reasons why certain feature representations form. Suppose we have two sets of input channels in 
+$$
+\vec{f}
+$$ 
+which form families 
+$$
+\mathcal{F}_1
+$$ 
+and 
+$$
+\mathcal{F}_2
+$$ with small categories 
+$$
+\Gamma_1
+$$ 
+and 
+$$
+\Gamma_2
+$$
+. Suppose then we wish to combine these two families in a circuit which maintains "equivariance" with respect to both small categories. Now, if we suppose $f_p \in \mathcal{F}_1$ and $f_q \in \mathcal{F}_2$, to create a family of output features which forms a family which preserves equivariance under combinations of elements of the small categories, for every possible combination of $f_p$ and $f_q$ we must have a filter $\psi_{pq}$ such that
 $$
 \psi_{pq}(\vec{f}) = \psi_{pq, p} * f_p + \psi_{pq, q} * f_q
 $$
