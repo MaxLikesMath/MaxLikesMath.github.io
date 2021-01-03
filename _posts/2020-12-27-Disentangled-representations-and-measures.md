@@ -186,6 +186,10 @@ Before concluding, it is worth making some remarks about how things behave in pr
 In conclusion, by presenting a slightly more formal way of thinking about very general transformations of inputs, we can discuss the observed properties of circuits and families in a slightly more mathematical way. While informal, it provides some useful tools for thinking about how features might potentially interact in a network.
 
 Hopefully this read has been interesting!
+
+
 Thanks,
+
+
 Max
 
