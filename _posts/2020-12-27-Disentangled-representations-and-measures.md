@@ -107,7 +107,7 @@ The definitions used for families of filters allows for a more mathematical disc
 
 To discuss this, we first observe how convolution is actually calculated. For the each filter functional $\psi_i$, we have that
 $$
-\psi_i(\vec{f}) = psi_{i,1} * f_1 + \dots + \psi_{i,c}*f_c
+\psi_i(\vec{f}) = \psi_{i,1} * f_1 + \dots + \psi_{i,c}*f_c
 $$
 Let's consider now how circuits combine families, which will give us some insight into possible reasons why certain feature representations form. Suppose we have two sets of input channels in 
 $$
