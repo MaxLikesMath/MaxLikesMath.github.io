@@ -20,13 +20,13 @@ We start with the idea of a [semigroup](https://en.wikipedia.org/wiki/Semigroup)
 
 The idea of a [ring](https://en.wikipedia.org/wiki/Ring_(mathematics)) has more moving parts than that of a semigroup. A ring is a set $$R$$ equipped with two binary operations of addition and multiplication $$(+, \cdot)$$ with the following properties:
 
-1. The addition operation $+$ is associative: $a+(b+c) = (a+b)+c$.
-2. Addition is commutative: $a+b = b+a$.
-3. There is an element $0$ (called the additive identity/zero) such that $a+0 = a$.
-4. For every $a$ there is an element $-a$ such that $a+(-a) = 0$.
-5. Multiplication is associative: $(a \cdot b ) \cdot c = a \cdot (b  \cdot c)$
-6. There is an element $1$ (called the multiplicative identity) such that $1 \cdot a = a$.
-7. Multiplication distributes over addition: $a \cdot (b + c)= a \cdot b +a \cdot b$.
+1. The addition operation $+$ is associative: $$a+(b+c) = (a+b)+c$$.
+2. Addition is commutative: $$a+b = b+a$$.
+3. There is an element $$0$$ (called the additive identity/zero) such that $$a+0 = a$$.
+4. For every $a$ there is an element $$-a$$ such that $$a+(-a) = 0$$.
+5. Multiplication is associative: $$(a \cdot b ) \cdot c = a \cdot (b  \cdot c)$$
+6. There is an element $$1$$ (called the multiplicative identity) such that $$1 \cdot a = a$$.
+7. Multiplication distributes over addition: $$a \cdot (b + c)= a \cdot b +a \cdot b$$.
 
 The idea of a ring can also be generalized to the idea of a [semiring](https://en.wikipedia.org/wiki/Semiring). A semiring is the same as a ring, except without property 4. So, an example of a ring would be the set of integers $$\mathbb{Z}$$, while an example of a semiring would be the non-negative integers $$\mathbb{Z}^+$$.
 
@@ -38,6 +38,7 @@ In this section we are going to construct an algebraic representation of ReLU ne
  Let's consider some input space $$X$$ as an $$n$$-dimensional vector space. A single fully-connected ReLU layer is given by the equation 
  
  $$\mathcal{N}(x) = \sigma(Wx + b)$$
+ 
   where $$W$$ is the weight matrix, $$x$$ is the input, $$b$$ is a bias term, and $$\sigma(z) = \text{max}(z,0)$$ is the ReLU function, applied elementwise to the vector produced by $$Wx + b$$.  A layer can be broken down into its constituent parts (i.e its "neurons"), where the $$i$$th neuron can be defined by a function 
  
  $$\mathcal{N}_i(x) = \sigma(w_i \cdot x + b_i)$$
@@ -51,7 +52,7 @@ Throughout the following sections you will notice that instead of treating ReLU 
 ### Parametrization and Growing Layer Widths
 To get the type of abstraction we want, we start by considering how we define a neural network layer. The key component of a fully-connected layer is the weight matrix. Most people are familiar with matrices as essentially the "rectangles of numbers" you work with in linear algebra, but we can give a bit of a weirder version of them than that. We can take a matrix $W$ and relate to it a function $$W : \mathbb{N} \to \mathbb{R}^n$$ on (a subset of) the natural numbers which contains all of the relevant information about the matrix. This can be done rather simply by defining $$W(i) = w_i$$ where $$i$$ is a row in the matrix we wish to construct. This works for the normal case of finite matrices by considering such functions on only finite subsets of $$\mathbb{N}$$, and can be used to describe a matrix with infinite columns as well.
 
-Given this, a fully-connected neural network layer is defined by such a function which we call a **parametrization scheme**.  We use this concept to define the action of "growing" a hidden layer. We start by selecting some upper bound on the possible width of the layer (we could allow it to be infinite if we wanted), and defining some parametrization scheme $$W : U \to \mathbb{R}^n$$ where $$U \subseteq \mathbb{N}$$ which defines the set of possible neurons. The $i$th neuron output can be described by the computation 
+Given this, a fully-connected neural network layer is defined by such a function which we call a **parametrization scheme**.  We use this concept to define the action of "growing" a hidden layer. We start by selecting some upper bound on the possible width of the layer (we could allow it to be infinite if we wanted), and defining some parametrization scheme $$W : U \to \mathbb{R}^n$$ where $$U \subseteq \mathbb{N}$$ which defines the set of possible neurons. The $$i$$th neuron output can be described by the computation 
 
 $$\mathcal{N}_i(x) = \sigma(W(i) \cdot x )$$
 
