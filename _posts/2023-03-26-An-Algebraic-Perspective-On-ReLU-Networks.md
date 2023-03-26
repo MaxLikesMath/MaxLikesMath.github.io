@@ -150,10 +150,18 @@ $$
 
 This tells us a few things. First, each feature in the output is encoded by a squarefree monomial. A squarefree monomial is a monomial where no variable appears more than once. This must be the case since the layer semigroup is idempotent.
 
-Given the above, we have a semiring for the layer, which we are going to denote as $$\mathbb{R}^+_{\mathcal{I}}\[\mathcal{N}^l\]$$, but, to the annoyance of those familiar with rings, is not actually the same as the semiring of the positive real multiples of the semigroup (hence the subscript). They are related, but this semiring has a bit of an odd property in that we actually have idempotence of addition if the network is not degenerate. That is, if we have an element $$a$$, adding $$a$$ to itself does not increase the information content, so we may take $$a + a = a$$. Let's think about why this makes sense for (unbiased) ReLU layers. Recall that multiplying $$\mathcal{N}_i$ with any $\mathcal{N}_j$$ whose parametrization was a scalar multiple of its own is an idempotent operation because it ultimately did not change the information content of the layer. Consider an input $$x$$ and the value $$\sigma(w_i \cdot (x+x)) = \sigma(w_i \cdot 2x)$$. We now consider both possible cases where the output is either 0, or positive. We can see that if $$\sigma(w_i \cdot x) = 0$$ then $$w_i \cdot x \leq 0$$ and using the bilinearity of the inner product we have $$w_i \cdot 2x \leq 0$$. This gives us that $$2\sigma(w_i \cdot x) = \sigma(w_i \cdot 2x) = 0$$. If $$\sigma(w_i \cdot x) > 0$$, then by the definition of the ReLU function we have that $$w_i \cdot x > 0$$ which means that $$w_i \cdot 2x > 0$$. We then have the equivalence
+Given the above, we have a semiring for the layer, which we are going to denote as $$\mathbb{R}^+_{\mathcal{I}}[\mathcal{N}^l]$$, but, to the annoyance of those familiar with rings, is not actually the same as the semiring of the positive real multiples of the semigroup (hence the subscript).
+They are related, but this semiring has a bit of an odd property in that we actually have idempotence of addition if the network is not degenerate. That is, if we have an element $$a$$, adding $$a$$ to itself does not increase the information content, so we may take $$a + a = a$$.
+Let's think about why this makes sense for (unbiased) ReLU layers. Recall that multiplying $$\mathcal{N}_i$ with any $\mathcal{N}_j$$ whose parametrization was a scalar multiple of its own is an idempotent operation because it ultimately did not change the information content of the layer.
+Consider an input $$x$$ and the value $$\sigma(w_i \cdot (x+x)) = \sigma(w_i \cdot 2x)$$.
+We now consider both possible cases where the output is either 0, or positive. We can see that if $$\sigma(w_i \cdot x) = 0$$ then $$w_i \cdot x \leq 0$$ and using the bilinearity of the inner product we have $$w_i \cdot 2x \leq 0$$. This gives us that $$2\sigma(w_i \cdot x) = \sigma(w_i \cdot 2x) = 0$$.
+If $$\sigma(w_i \cdot x) > 0$$, then by the definition of the ReLU function we have that $$w_i \cdot x > 0$$ which means that $$w_i \cdot 2x > 0$$. We then have the equivalence
  
 $$\sigma(w_i \cdot 2x) = \sigma(2w_i \cdot x)$$
-$$= 2\sigma(w_i \cdot x) $$ $$ = \sigma(w_i \cdot x) +\sigma(w_i \cdot x)$$ 
+
+$$= 2\sigma(w_i \cdot x) $$ 
+
+$$ = \sigma(w_i \cdot x) +\sigma(w_i \cdot x)$$ 
 
 from the piecewise linearity of the ReLU function. We know from our idempotency of multiplication that the information content of $$\sigma(2w_i \cdot x)$$ is the same as $$\sigma(w_i \cdot x)$$ which implies that $$2\sigma(w_i \cdot x)$$ is as well, giving the idempotency of addition. The idempotency of addition from the perspective of information content makes sense, as you are not increasing the available information by including the same piece of information multiple times. Since addition is idempotent, this semiring is called an idempotent semiring.
 
