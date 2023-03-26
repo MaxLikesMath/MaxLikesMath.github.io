@@ -39,11 +39,11 @@ In this section we are going to construct an algebraic representation of ReLU ne
  
  $$\mathcal{N}(x) = \sigma(Wx + b)$$
  
-  where $$W$$ is the weight matrix, $$x$$ is the input, $$b$$ is a bias term, and $$\sigma(z) = \text{max}(z,0)$$ is the ReLU function, applied elementwise to the vector produced by $$Wx + b$$.  A layer can be broken down into its constituent parts (i.e its "neurons"), where the $$i$$th neuron can be defined by a function 
+  where $$W$$ is the weight matrix, $$x$$ is the input, $$b$$ is a bias term, and $$\sigma(z) = \text{max}(z,0)$$ is the ReLU function, applied elementwise to the vector produced by $$Wx + b$$.  A layer can be broken down into its constituent parts (i.e its "neurons"), where the ith neuron can be defined by a function 
  
  $$\mathcal{N}_i(x) = \sigma(w_i \cdot x + b_i)$$
  
- where the $$w_i$$ is the $$i$$th row of the weight matrix $$W$$ and $$b_i$$ is the $$i$$th bias term. 
+ where the $$w_i$$ is the $$i$$th row of the weight matrix $$W$$ and $$b_i$$ is the ith bias term. 
 
 Borrowing from the aforementioned spline theory of deep learning, we can interpret each $$w_i$$ as a so called *feature template*, where the dot product produces a similarity measure of the input $$x$$ with this feature template. The bias term effectively works by setting the minimum activation threshold for the ReLU function. For our purposes, we are going to drop the bias term as leaving it in would add a fair bit of notational clutter, while not meaningfully impacting the results.
 
@@ -52,11 +52,12 @@ Throughout the following sections you will notice that instead of treating ReLU 
 ### Parametrization and Growing Layer Widths
 To get the type of abstraction we want, we start by considering how we define a neural network layer. The key component of a fully-connected layer is the weight matrix. Most people are familiar with matrices as essentially the "rectangles of numbers" you work with in linear algebra, but we can give a bit of a weirder version of them than that. We can take a matrix $W$ and relate to it a function $$W : \mathbb{N} \to \mathbb{R}^n$$ on (a subset of) the natural numbers which contains all of the relevant information about the matrix. This can be done rather simply by defining $$W(i) = w_i$$ where $$i$$ is a row in the matrix we wish to construct. This works for the normal case of finite matrices by considering such functions on only finite subsets of $$\mathbb{N}$$, and can be used to describe a matrix with infinite columns as well.
 
-Given this, a fully-connected neural network layer is defined by such a function which we call a **parametrization scheme**.  We use this concept to define the action of "growing" a hidden layer. We start by selecting some upper bound on the possible width of the layer (we could allow it to be infinite if we wanted), and defining some parametrization scheme $$W : U \to \mathbb{R}^n$$ where $$U \subseteq \mathbb{N}$$ which defines the set of possible neurons. The $$i$$th neuron output can be described by the computation 
+Given this, a fully-connected neural network layer is defined by such a function which we call a **parametrization scheme**.  We use this concept to define the action of "growing" a hidden layer. We start by selecting some upper bound on the possible width of the layer (we could allow it to be infinite if we wanted), and defining some parametrization scheme $$W : U \to \mathbb{R}^n$$ where $$U \subseteq \mathbb{N}$$ which defines the set of possible neurons. The ith neuron output can be described by the computation 
 
-$$\mathcal{N}_i(x) = \sigma(W(i) \cdot x )$$
+$$\mathcal{N}_i(x) = \sigma(W(i) \cdot x)$$
 
-Letting $$\mathcal{N}_i$$ denote a neuron, let us define a concatenation operation $$\otimes$$ between the neurons. With this operation, the parametrization scheme defines a semigroup by simply treating the $$\mathcal{N}_i$$ as members of a (possibly infinite) alphabet. Let us denote this semigroup of as $$S(\mathcal{N})$$. Elements of this semigroup are objects of the form $$\bigotimes_{i \in K}^K\mathcal{N}_i$$ for some set of indices $$K$$. This operation of concatenation allows us to "grow" a hidden layer to some desired width. 
+Letting $$\mathcal{N}_\text{i}$$
+denote a neuron, let us define a concatenation operation $\otimes$ between the neurons. With this operation, the parametrization scheme defines a semigroup by simply treating the $$\mathcal{N}_{i}$$ as members of a (possibly infinite) alphabet. Let us denote this semigroup of as $S(\mathcal{N})$. Elements of this semigroup are objects of the form $$\bigotimes_{i \in K}^K \mathcal{N}_i$$ for some set of indices $K$. This operation of concatenation allows us to "grow" a hidden layer to some desired width. 
 
 *Remark*:
 Where it is clear, we will drop the concatenation symbol $$\otimes$$, and use Einstein-style notation: $$\bigotimes_{i \in K}^K\mathcal{N}_i = \mathcal{N}_K$$.
