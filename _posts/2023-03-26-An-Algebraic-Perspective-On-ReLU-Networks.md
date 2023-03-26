@@ -243,6 +243,7 @@ $$ x =\begin{bmatrix}
          \end{bmatrix}$$
          
 and let's take $P_1$ to be the logical statement $x_1 \land x_2$. We then encode this statement as the vector
+
 $$
 P_1 =\begin{bmatrix}
            1 \\
