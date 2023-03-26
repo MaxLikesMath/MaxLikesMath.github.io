@@ -252,7 +252,7 @@ P_1 =\begin{bmatrix}
          \end{bmatrix}
 $$
 
-so we can get the truth value for $$P_1$$ by the equality $$P_1 \cdot x = 2$$. We can actually encode this into a ReLU layer by $$\sigma(P_1 \cdot x -1)$$, as one can see that if $$P_1$$ is not true then $$\sigma(P_1 \cdot x -1) = 0$$ and 1 otherwise. We can generalize this to any $$\land$$ between any number of input variables by $$\sigma(P \cdot x + (1-\|\|P\|\|_1 ))$$ where the logical statement $$P$$ is encoded by vector with entries of $$0$$s and $$1$$s.
+so we can get the truth value for $$P_1$$ by the equality $$P_1 \cdot x = 2$$. We can actually encode this into a ReLU layer by $$\sigma(P_1 \cdot x -1)$$, as one can see that if $$P_1$$ is not true then $$\sigma(P_1 \cdot x -1) = 0$$ and 1 otherwise. We can generalize this to any $$\land$$ between any number of input variables by $$\sigma(P \cdot x + (1-\text{||}P\text{||}_1 ))$$ where the logical statement $$P$$ is encoded by vector with entries of $$0$$s and $$1$$s.
 
 Next let's think of how to encode the negation $$\neg$$. For a logical statement $$P_2 = \neg x_3$$ this can be encoded in a straightforward way by taking
 
