@@ -151,22 +151,10 @@ $$
 This tells us a few things. First, each feature in the output is encoded by a squarefree monomial. A squarefree monomial is a monomial where no variable appears more than once. This must be the case since the layer semigroup is idempotent.
 
 Given the above, we have a semiring for the layer, which we are going to denote as $$\mathbb{R}^+_{\mathcal{I}}[\mathcal{N}^l]$$, but, to the annoyance of those familiar with rings, is not actually the same as the semiring of the positive real multiples of the semigroup (hence the subscript).
-They are related, but this semiring has a bit of an odd property in that we actually have idempotence of addition if the network is not degenerate. That is, if we have an element $$a$$, adding $$a$$ to itself does not increase the information content, so we may take $$a + a = a$$.
-Let's think about why this makes sense for (unbiased) ReLU layers. Recall that multiplying $$\mathcal{N}_i$$ with any $$\mathcal{N}_j$$ whose parametrization was a scalar multiple of its own is an idempotent operation because it ultimately did not change the information content of the layer.
-Consider an input $$x$$ and the value $$\sigma(w_i \cdot (x+x)) = \sigma(w_i \cdot 2x)$$.
-We now consider both possible cases where the output is either 0, or positive. We can see that if $$\sigma(w_i \cdot x) = 0$$ then $$w_i \cdot x \leq 0$$ and using the bilinearity of the inner product we have $$w_i \cdot 2x \leq 0$$. This gives us that $$2\sigma(w_i \cdot x) = \sigma(w_i \cdot 2x) = 0$$.
-If $$\sigma(w_i \cdot x) > 0$$, then by the definition of the ReLU function we have that $$w_i \cdot x > 0$$ which means that $$w_i \cdot 2x > 0$$. We then have the equivalence
- 
-$$\sigma(w_i \cdot 2x) = \sigma(2w_i \cdot x)$$
-
-$$= 2\sigma(w_i \cdot x) $$ 
-
-$$ = \sigma(w_i \cdot x) +\sigma(w_i \cdot x)$$ 
-
-from the piecewise linearity of the ReLU function. We know from our idempotency of multiplication that the information content of $$\sigma(2w_i \cdot x)$$ is the same as $$\sigma(w_i \cdot x)$$ which implies that $$2\sigma(w_i \cdot x)$$ is as well, giving the idempotency of addition. The idempotency of addition from the perspective of information content makes sense, as you are not increasing the available information by including the same piece of information multiple times. Since addition is idempotent, this semiring is called an idempotent semiring.
+They are related, but this semiring is going to be a bit backwards, in that we are going to take classical addition as the multiplication operation of the semiring, and take our concatenation operation $$\otimes$$ as the addition operation within the semiring. It can easily be checked that by including the zero neuron in the layer semigroup to make it a monoid that we can indeed make this swap. This means that this semiring is what is known as an idempotent semiring, a fact that will become important later.
 
 ### Ideals of the Semiring
-When talking about the layer semigroup, we showed that each element had an associated ideal. We have something similar for our semiring given above, coming from the definition of an [ideal of a ring](https://en.wikipedia.org/wiki/Ideal_(ring_theory)). An ideal of a ring is similar to an ideal of a semigroup. For a ring $$R$$, a subset $$A$$ is an ideal of $$R$$ if $$A$$ if the additive group $$(A, +)$$ is a subgroup of $$(R, +)$$, and if for any $$r \in R$$ we have that $$ra \in A$$ for all $$a$$. Note though that we are not working with rings, but instead semirings, so instead of requiring an additive group structure on $$A$$, we weaken this to an additive semigroup structure.
+When talking about the layer semigroup, we showed that each element had an associated ideal. We have something similar for our semiring given above. There exists the notion of an [ideal of a ring](https://en.wikipedia.org/wiki/Ideal_(ring_theory)). An ideal of a ring is similar to an ideal of a semigroup. For a ring $$R$$, a subset $$A$$ is an ideal of $$R$$ if $$A$$ if the additive group $$(A, +)$$ is a subgroup of $$(R, +)$$, and if for any $$r \in R$$ we have that $$ra \in A$$ for all $$a$$. A weaker version of this is a subring, which is not closed under multiplication by elements of the ring, but only under elements of the sub-ring. Note though that we are not working with rings, but instead semirings, so instead of requiring an additive group structure on $$A$$, we weaken this to an additive semigroup structure. 
 
 Here we restrict ourselves to considering networks with some upper bound on the width, so the layer semigroup is finite. It suffices to consider elements of the first hidden layer semialgebra 
 
@@ -176,19 +164,15 @@ $$
 
 $$ = \sum_{j=1}^J \mathcal{N}^1_j(x) \mathcal{X}_{I_j}\mathcal{N}^1_j$$
 
-where the $$I_j$$ are the index sets. We will show that every input has an associated (non-unique) ideal $$F$$. This ideal will be important later, as it defines a geometric structure.
+where the $$I_j$$ are the index sets. We will show that every input has an associated (non-unique) subsemiring. 
 
 Given $$\sum_{j \in J}^J \mathcal{N}^1_j(x) \mathcal{X}_{I_j}\mathcal{N}^1_j$$,
 we can consider the new terms $$\mathcal{N}_j^1$$ as new elements of the generating set for the original layer semigroup,
 so we can just let it be represented by some $$\mathcal{X}$$. Thus we can give a set $$\{\mathcal{X}_k \text{|} k \notin I_j \forall j \in J\}$$,
 which is the set of all $$\mathcal{X}_k$$ which do not appear in any of the monomial terms of $$\mathcal{N}^1(x)$$. 
 This set forms a (sub)semigroup, and we know from the basic properties of of our semigroup that this must have some maximal element $$\mathcal{X}_K$$. This element defines the semigroup ideal generated by $$\{\mathcal{X}_K \otimes \mathcal{X}_i \text{|} i \notin K \}$$,
-which maps onto the semigroup generated by the $$\mathcal{X}_i$$ which we can recall is the quotient $$X/X^{[K]}$$.
-
-So we have that $$\sum_{j=1}^J \mathcal{N}^1_j(x) \mathcal{X}_{I_j}$$ is an element of the semialgebra $$\mathbb{R}^+_{\mathcal{I}}[X/X^{[K]}]$$.
-We can in fact rewrite this as a quotient $$\mathbb{R}^+_{\mathcal{I}}[X]/F$$
-where $$F$$ is an ideal of the semiring $$\mathbb{R}^+_{\mathcal{I}}[X]$$.
-This can be seen by constructing the ideal generated by elements of the form $$\{c\mathcal{X}_k \otimes \mathcal{X}_j \text{|} k\in K, j \notin K, c \in \mathbb{R}^+\}$$. This ideal effectively factors out the monomial terms from our semiring which do not appear as features present in the input $$x$$.
+which maps onto the semigroup generated by the $$\mathcal{X}_i$$ which we can recall is the quotient $$X/X^{[K]}$$. We now have that $$\sum_{j=1}^J \mathcal{N}^1_j(x) \mathcal{X}_{I_j}$$ is an element of the subsemiring $$\mathbb{R}^+_{\mathcal{I}}[X/X^{[K]}]$$.
+This quotient effectively factors out the monomial terms from our semiring which do not appear as features present in the input $$x$$.
 
 ### Section Summary
 The above results show that a ReLU network defines a semiring. This semiring consists of squarefree monomial terms. Each input is mapped onto an element of this semiring, meaning each input has an associated polynomial with squarefree monomial terms.
@@ -223,7 +207,7 @@ which consists of square free monomial terms. If we have some finite vertex set 
 A polynomial like $$P_\Delta$$ coming from such a finite vertex set can be viewed as an element of the polynomial ring  $$\mathbb{R}[x_1, ..., x_n]$$. Now consider the ideal $$I_\Delta$$ generated by all square-free monomial terms which do not appear as faces of any of the terms of $$P_\Delta$$ (it is straightforward to check that this is indeed an ideal). We can then produce a quotient ring $$\mathbb{R}[x_1, ..., x_n]/I_\Delta$$ which contains the polynomial $$P_\Delta$$. This quotient ring has a particular name, called the [Stanley-Reisner Ring](https://en.wikipedia.org/wiki/Stanley%E2%80%93Reisner_ring), and the ideal $$I_\Delta$$ is known as the Stanely-Reisner ideal of $$\Delta$$. This ring is one of the objects that establishes the connection between the fields of polyhedral geometry and commutative combinatorial algebra. For a more in-depth overview of Stanley-Reisner theory, [this survey](https://math.okstate.edu/people/mermin/papers/A_survey_of_Stanley-Reisner_theory.pdf) serves as a good introduction for those with some experience in abstract algebra.
 
 ### Returning to Neural Networks
-Returning back to considering some layer algebra quotiented by some ideal $$F$$, $$\mathbb{R}^+_{\mathcal{I}}[\mathcal{N}^l]/F$$, it's easy to see that this is not a Stanley-Reisner ring. Despite this, it still captures the structure of simplicial complex. As we saw earlier, an input $$x$$ is associated to some ideal $$F$$ which is generated by squarefree monomial terms that represent the features killed off by the ReLU function. The input $$x$$ is then associated to some polynomial consisting of squarefree monomial terms which do not appear in $$F$$ which defines a simplicial complex in a similar way to the Stanley-Reisner Ring. So, a neural network consisting of ReLU layers does, in fact, map inputs to simplicial complexes in a sense. An important thing to note though is that the layer semiring we have constructed does not necessarily capture the geometric or topological properties of the associated simplicial complex the way the Stanley-Reisner ring does. Rather, it just tells us that there is a way to associate some simplicial complex with each input.
+Returning back to considering some layer semiring. It's easy to see that this is not a Stanley-Reisner ring. Despite this, it still captures the structure of simplicial complex. As we saw earlier, an input $$x$$ is associated to some subsemiring which has a generating set factored by squarefree monomial terms that represent the features killed off by the ReLU function. The input $$x$$ is then associated to some polynomial consisting of squarefree monomial terms which do not get factored which defines a simplicial complex in a similar way to the Stanley-Reisner Ring. So, a neural network consisting of ReLU layers does, in fact, map inputs to simplicial complexes in a sense. An important thing to note though is that the layer semiring we have constructed does not necessarily capture the geometric or topological properties of the associated simplicial complex the way the Stanley-Reisner ring does. Rather, it just tells us that there is a way to associate some simplicial complex with each input.
 
 ## Neural Networks as Logic Machines
 For those familiar with the idea of an [information algebra](https://en.wikipedia.org/wiki/Information_algebra) some of the ideas presented in the algebraic section might look familiar. One might think then that there is a sense in which the layer algebras defined above are in fact information algebras. Indeed, one can [induce an information algebra from a semiring](https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=05c62d16d117cd9d4ba2355ae8e227b7fa8905ff) . However, we are not going to explore this directly here as we do not need to. Instead, we will show how neural networks encode a type of logic, and that this logic is effectively captured by the algebraic structure. We will start with a simple example for intuition, then provide the actual result.
